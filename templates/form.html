@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>📝 Тестова форма</h2>
+    {% if name %}
+        <div class="alert alert-success">Привіт, {{ name }}! 🎉</div>
+        <a href="/form" class="btn btn-secondary">Назад</a>
+    {% else %}
+        <form method="POST">
+            <div class="mb-3">
+                <label>Введіть ваше ім'я:</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Надіслати</button>
+        </form>
+    {% endif %}
+{% endblock %}

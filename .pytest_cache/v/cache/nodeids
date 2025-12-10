@@ -1,0 +1,4 @@
+[
+  "test_app.py::test_home_page",
+  "test_app.py::test_register"
+]

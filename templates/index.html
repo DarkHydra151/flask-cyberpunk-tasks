@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row align-items-center mb-5">
+    <div class="col-lg-8">
+        <h1 class="display-3 fw-bold neon-text-glitch mb-3">СИСТЕМА АКТИВНА</h1>
+        <p class="lead text-info">
+            Ласкаво просимо, <span class="text-white fw-bold">{{ current_user.username if current_user.is_authenticated else 'GUEST_USER' }}</span>. 
+            Протоколи управління завданнями завантажено. Синхронізація з нейромережею стабільна.
+        </p>
+        <div class="mt-4">
+            <a href="/tasks" class="btn btn-neon-primary btn-lg me-3">🚀 ЗАПУСТИТИ ЗАВДАННЯ</a>
+            {% if not current_user.is_authenticated %}
+                <a href="/register" class="btn btn-neon-sm">ІНІЦІАЛІЗАЦІЯ (РЕЄСТРАЦІЯ)</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-lg-4 d-none d-lg-block">
+        <div class="cyber-card glass-panel p-3 font-monospace" style="font-size: 0.8rem; opacity: 0.8;">
+            <div class="text-success border-bottom border-success mb-2">>> SYSTEM LOGS // LIVE</div>
+            <div class="text-muted">> Connecting to db... <span class="text-success">OK</span></div>
+            <div class="text-muted">> Loading styles... <span class="text-success">OK</span></div>
+            <div class="text-muted">> User_Auth... <span class="text-warning">{{ 'VERIFIED' if current_user.is_authenticated else 'PENDING' }}</span></div>
+            <div class="text-muted">> Cyber_Grid... <span class="text-success">ACTIVE</span></div>
+            <div class="text-neon-pink mt-2 blink-cursor">> Awaiting Input_</div>
+        </div>
+    </div>
+</div>
+
+{% if current_user.is_authenticated %}
+<div class="row g-4 text-center">
+    <div class="col-md-4">
+        <div class="cyber-card glass-panel h-100 py-4" style="border-top: 3px solid var(--neon-cyan);">
+            <h5 class="text-muted text-uppercase ls-2">Всього завдань</h5>
+            <h1 class="display-2 fw-bold text-white mb-0" style="text-shadow: var(--glow-cyan);">
+                {{ stats.total }}
+            </h1>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="cyber-card glass-panel h-100 py-4" style="border-top: 3px solid var(--neon-green);">
+            <h5 class="text-muted text-uppercase ls-2">Виконано</h5>
+            <h1 class="display-2 fw-bold text-white mb-0" style="text-shadow: 0 0 20px var(--neon-green);">
+                {{ stats.completed }}
+            </h1>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="cyber-card glass-panel h-100 py-4" style="border-top: 3px solid var(--neon-red);">
+            <h5 class="text-muted text-uppercase ls-2">В очікуванні</h5>
+            <h1 class="display-2 fw-bold text-white mb-0" style="text-shadow: 0 0 20px var(--neon-red);">
+                {{ stats.pending }}
+            </h1>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<style>
+    .blink-cursor { animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .ls-2 { letter-spacing: 2px; }
+</style>
+{% endblock %}

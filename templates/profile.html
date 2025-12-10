@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        
+        <div class="cyber-card glass-panel">
+            <div class="cyber-card-header d-flex justify-content-between align-items-center">
+                <h3 class="mb-0 neon-text-glitch">👤 ОСОБИСТА СПРАВА</h3>
+                <span class="badge border border-info text-info">ID: {{ current_user.id }}</span>
+            </div>
+            
+            <div class="card-body">
+                <div class="row align-items-center">
+                    
+                    <div class="col-md-4 text-center mb-4 mb-md-0">
+                        <div class="position-relative d-inline-block">
+                            <img src="{{ current_user.email|gravatar(size=200) }}" 
+                                 class="rounded-circle img-fluid border border-2 border-info shadow-lg"
+                                 style="box-shadow: 0 0 30px var(--neon-cyan) !important;">
+                            
+                            <div class="position-absolute bottom-0 end-0 bg-black rounded-circle p-1" style="border: 2px solid var(--neon-cyan);">
+                                <div class="bg-success rounded-circle" style="width: 20px; height: 20px; box-shadow: 0 0 10px #0f0;"></div>
+                            </div>
+                        </div>
+                        <h4 class="mt-3 text-white">{{ current_user.username }}</h4>
+                        <p class="text-muted">{{ current_user.email }}</p>
+                    </div>
+
+                    <div class="col-md-8">
+                        <h5 class="text-info border-bottom border-info pb-2 mb-3">ДАНІ КОРИСТУВАЧА</h5>
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-6">
+                                <div class="p-3 border border-secondary rounded bg-black bg-opacity-25">
+                                    <small class="text-muted d-block">Дата реєстрації</small>
+                                    <span class="text-white fs-5">{{ current_user.created_at.strftime('%d.%m.%Y') }}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="p-3 border border-secondary rounded bg-black bg-opacity-25">
+                                    <small class="text-muted d-block">Рівень доступу</small>
+                                    <span class="text-warning fs-5">ADMINISTRATOR</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="text-info border-bottom border-info pb-2 mb-3">СТАТИСТИКА ЕФЕКТИВНОСТІ</h5>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <h3 class="text-white mb-0">100%</h3>
+                                <small class="text-muted">Синхронізація</small>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="text-white mb-0">A+</h3>
+                                <small class="text-muted">Рейтинг</small>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="text-white mb-0">Active</h3>
+                                <small class="text-muted">Статус</small>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-end">
+                            <a href="/logout" class="btn btn-neon-sm text-danger border-danger">
+                                🛑 ВІДКЛЮЧИТИСЯ (LOGOUT)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

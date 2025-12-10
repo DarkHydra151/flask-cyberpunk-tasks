@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-5 col-lg-4">
+        
+        <div class="cyber-card glass-panel floating-card">
+            
+            <div class="cyber-card-header text-center pb-0">
+                <h3 class="neon-text-glitch">🆕 РЕЄСТРАЦІЯ</h3>
+                <p class="text-muted">Створення нового цифрового ідентифікатора</p>
+            </div>
+            
+            <div class="card-body pt-4">
+                <form method="POST">
+                    
+                    <div class="mb-3 cyber-input-group">
+                        <span class="input-icon">👤</span>
+                        <input type="text" class="form-control cyber-input ps-5" name="username" placeholder="Логін" required>
+                    </div>
+
+                    <div class="mb-3 cyber-input-group">
+                        <span class="input-icon">📧</span>
+                        <input type="email" class="form-control cyber-input ps-5" name="email" placeholder="Email (для аватару)" required>
+                    </div>
+
+                    <div class="mb-4 cyber-input-group">
+                        <span class="input-icon">🔑</span>
+                        <input type="password" class="form-control cyber-input ps-5" name="password" placeholder="Пароль" required>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-neon-primary btn-lg btn-glitch">ІНІЦІЮВАТИ ДОСТУП</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="card-footer text-center border-0 pt-0">
+                <small class="text-muted">Вже є ідентифікатор? <a href="/login" class="neon-link">Увійти в систему</a></small>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

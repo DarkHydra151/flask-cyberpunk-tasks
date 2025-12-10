@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <div class="cyber-card glass-panel">
+            <div class="cyber-card-header">
+                <h4>⚡ НОВИЙ ПРОТОКОЛ</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <input type="text" name="title" class="form-control cyber-input" placeholder="Назва завдання..." required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="description" class="form-control cyber-input" placeholder="Детальний опис (опціонально)" rows="2"></textarea>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <select name="priority" class="form-select cyber-input">
+                                <option value="low">🟢 Низький</option>
+                                <option value="medium" selected>🟡 Середній</option>
+                                <option value="high">🔴 Високий</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                           <input type="date" name="due_date" class="form-control cyber-input">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-neon-primary w-100">ІНІЦІЮВАТИ ЗАВДАННЯ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="mb-3">
+            <input type="text" id="taskSearch" class="form-control cyber-input search-input" placeholder="🔍 Сканування завдань...">
+        </div>
+
+        <div class="task-list" id="taskList">
+            {% for task in tasks %}
+            {% set overdue = task.due_date and task.due_date < now and not task.is_completed %}
+            <div class="cyber-task-item glass-panel {{ 'completed' if task.is_completed }} {{ 'overdue' if overdue }} priority-{{ task.priority }}" data-id="{{ task.id }}">
+                <div class="d-flex align-items-center">
+                    <div class="cyber-checkbox-wrapper me-3">
+                        <input type="checkbox" class="cyber-checkbox task-toggle" id="task-{{ task.id }}" {% if task.is_completed %}checked{% endif %}>
+                        <label for="task-{{ task.id }}" class="cyber-checkbox-label"></label>
+                    </div>
+                    
+                    <div class="flex-grow-1 task-content">
+                        <h5 class="mb-1 task-title">{{ task.title }}</h5>
+                        {% if task.description %}
+                            <p class="mb-1 text-muted cyber-desc">{{ task.description }}</p>
+                        {% endif %}
+                        
+                        <div class="task-meta d-flex gap-3 fs-sm">
+                            <span class="badge bg-transparent border border-{{ 'danger' if task.priority=='high' else 'warning' if task.priority=='medium' else 'success' }} text-{{ 'danger' if task.priority=='high' else 'warning' if task.priority=='medium' else 'success' }}">
+                                {{ '🔥 Високий' if task.priority=='high' else '⚡ Середній' if task.priority=='medium' else '🌱 Низький' }}
+                            </span>
+                            {% if task.due_date %}
+                                <span class="{{ 'text-neon-danger animate-pulse' if overdue else 'text-neon-info' }}">
+                                    📅 {{ task.due_date.strftime('%d.%m.%Y') }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-icon-warning me-2" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#editTaskModal"
+                            
+                            data-id="{{ task.id }}"
+                            data-title="{{ task.title }}"
+                            data-desc="{{ task.description or '' }}"
+                            data-priority="{{ task.priority }}"
+                            data-date="{{ task.due_date.strftime('%Y-%m-%d') if task.due_date else '' }}"
+                            
+                            onclick="openEditModal(this)">
+                        ✏️
+                    </button>
+
+                    <button class="btn btn-icon-danger task-delete ms-2">🗑️</button>
+                </div>
+            </div>
+            {% else %}
+                <div class="alert cyber-alert neon-info text-center">Система чиста. Завдань не виявлено.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editTaskModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-panel" style="border: 1px solid var(--neon-cyan);">
+            
+            <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title neon-text-glitch">🛠 РЕДАГУВАННЯ ПРОТОКОЛУ</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="editTaskForm" method="POST">
+                    
+                    <div class="mb-3">
+                        <label class="text-info small mb-1">Назва</label>
+                        <input type="text" name="title" id="editTitle" class="form-control cyber-input" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-info small mb-1">Опис</label>
+                        <textarea name="description" id="editDesc" class="form-control cyber-input" rows="3"></textarea>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <label class="text-info small mb-1">Пріоритет</label>
+                            <select name="priority" id="editPriority" class="form-select cyber-input">
+                                <option value="low">🌱 Низький</option>
+                                <option value="medium">⚡ Середній</option>
+                                <option value="high">🔥 Високий</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-6">
+                            <label class="text-info small mb-1">Дедлайн</label>
+                            <input type="date" name="due_date" id="editDate" class="form-control cyber-input">
+                        </div>
+                    </div>
+
+                    <div class="mt-4 d-grid">
+                        <button type="submit" class="btn btn-neon-primary">ЗБЕРЕГТИ ЗМІНИ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

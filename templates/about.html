@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            
+            <div class="cyber-card glass-panel p-5">
+                <div class="text-center mb-5">
+                    <h2 class="neon-text-glitch mb-3">SYSTEM SPECIFICATIONS v3.0</h2>
+                    <p class="lead text-muted">Технічна інформація про розробку</p>
+                    <hr class="border-secondary">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <h4 class="text-info mb-3">📡 ПРО ПРОЕКТ</h4>
+                        <p class="text-white-50">
+                            Цей веб-додаток є фінальною реалізацією практичного завдання №3.
+                            Система спроектована для управління персональними завданнями в умовах
+                            високого інформаційного навантаження.
+                        </p>
+                        <p class="text-white-50">
+                            Інтерфейс виконано в стилістиці <strong>Cyberpunk / Synthwave</strong>,
+                            що забезпечує максимальне занурення користувача.
+                        </p>
+                        
+                        <div class="mt-4 p-3 border border-dark bg-black rounded">
+                            <h6 class="text-muted mb-2">РОЗРОБНИК:</h6>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary rounded-circle me-3" style="width: 40px; height: 40px; box-shadow: 0 0 15px blue;"></div>
+                                <div>
+                                    <h5 class="mb-0 text-white">Myakota Illya</h5>
+                                    <small class="text-muted">Fullstack Engineer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h4 class="text-neon-pink mb-3">💾 МОДУЛІ ЯДРА</h4>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between text-white mb-1">
+                                <span>Python / Flask</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress" style="height: 10px; background: #1a1a2e;">
+                                <div class="progress-bar bg-info" style="width: 100%; box-shadow: 0 0 10px cyan;"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between text-white mb-1">
+                                <span>SQLAlchemy (ORM)</span>
+                                <span>Stable</span>
+                            </div>
+                            <div class="progress" style="height: 10px; background: #1a1a2e;">
+                                <div class="progress-bar bg-success" style="width: 90%; box-shadow: 0 0 10px lime;"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between text-white mb-1">
+                                <span>Bootstrap 5 + Neon CSS</span>
+                                <span>Overloaded</span>
+                            </div>
+                            <div class="progress" style="height: 10px; background: #1a1a2e;">
+                                <div class="progress-bar bg-danger" style="width: 85%; box-shadow: 0 0 10px red;"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between text-white mb-1">
+                                <span>AJAX / JS Interact</span>
+                                <span>Active</span>
+                            </div>
+                            <div class="progress" style="height: 10px; background: #1a1a2e;">
+                                <div class="progress-bar bg-warning" style="width: 75%; box-shadow: 0 0 10px yellow;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <a href="https://github.com/DarkHydra151" target="_blank" class="btn btn-outline-light btn-sm opacity-50">
+                        📂 VIEW SOURCE CODE (GITHUB)
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
